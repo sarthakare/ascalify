@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "Ascalify | Custom SaaS and Application Development",
   description:
     "Ascalify builds customizable SaaS platforms, web applications, and mobile apps tailored to your business goals.",
+  icons: {
+    icon: "/icon_black_bg.png",
+    shortcut: "/icon_black_bg.png",
+    apple: "/icon_black_bg.png",
+  },
 };
 
 export default function RootLayout({
