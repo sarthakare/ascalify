@@ -6,9 +6,12 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_HASH } from "@/lib/contact";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 export function PackageFitSection() {
+  const viewport = useViewportOnce();
+
   return (
     <section className="relative overflow-hidden bg-[#10062f] text-white">
       <div
@@ -24,7 +27,7 @@ export function PackageFitSection() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0, 0.45)}
         >
           <p className="text-sm font-bold uppercase tracking-[0.22em] text-white/60">
@@ -55,7 +58,7 @@ export function PackageFitSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 24 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0.08, 0.5)}
           className="relative"
         >

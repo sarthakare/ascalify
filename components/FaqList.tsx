@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 type FaqItem = {
   question: string;
@@ -14,6 +15,8 @@ type FaqListProps = {
 };
 
 export function FaqList({ items, animationOffset = 0 }: FaqListProps) {
+  const viewport = useViewportOnce();
+
   return (
     <div className="mt-8 space-y-4">
       {items.map((faq, index) => (
@@ -21,7 +24,7 @@ export function FaqList({ items, animationOffset = 0 }: FaqListProps) {
           key={faq.question}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(
             animationOffset * 0.04 + index * 0.05,
             0.35,

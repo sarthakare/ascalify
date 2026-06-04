@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaqList } from "@/components/FaqList";
 import { AnimateIn } from "@/components/AnimateIn";
 import type { FaqGroup } from "@/lib/packages";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
 import { faqs } from "@/lib/packages";
 
 type FaqGroupBlockProps = {
@@ -19,6 +20,7 @@ export function FaqGroupBlock({
 }: FaqGroupBlockProps) {
   const isFirst = index === 0;
   const items = group.questionIndices.map((i) => faqs[i]);
+  const viewport = useViewportOnce();
 
   return (
     <div className="relative">
@@ -36,7 +38,7 @@ export function FaqGroupBlock({
         id={group.id}
         initial={isFirst ? { opacity: 0, y: 12 } : { opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        viewport={viewport}
         transition={{
           duration: isFirst ? 0.5 : 0.75,
           ease: "easeOut",
@@ -92,7 +94,7 @@ function GroupHeader({ group, index }: { group: FaqGroup; index: number }) {
           {group.subtitle}
         </p>
       </div>
-      <span className="text-5xl font-black leading-none text-brand/20 sm:text-6xl">
+      <span className="text-4xl font-black leading-none text-brand/20 sm:text-5xl lg:text-6xl">
         {String(index + 1).padStart(2, "0")}
       </span>
     </div>

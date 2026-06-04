@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { motionTransition } from "@/lib/motion";
+import { useMotionPreferences } from "@/hooks/useMotionPreferences";
+import { motionTransition, reducedMotionTransition } from "@/lib/motion";
 
 type HeroProps = {
   eyebrow?: string;
@@ -27,6 +28,11 @@ export function Hero({
   secondaryHref,
   secondaryLabel,
 }: HeroProps) {
+  const { reducedMotion, isMobile } = useMotionPreferences();
+  const enterY = reducedMotion ? 0 : isMobile ? 8 : 14;
+  const enterTransition = (delay: number, duration = 0.4) =>
+    reducedMotion ? reducedMotionTransition(delay) : motionTransition(delay, duration);
+
   const trustItems = [
     "30-day support included",
     "Mobile-first delivery",
@@ -53,17 +59,17 @@ export function Hero({
       <div className="relative mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-16 md:py-24">
         <div>
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: enterY }}
             animate={{ opacity: 1, y: 0 }}
-            transition={motionTransition(0, 0.4)}
+            transition={enterTransition(0, 0.4)}
             className="text-xs font-semibold uppercase tracking-[0.2em] text-brand sm:text-sm"
           >
             {eyebrow}
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: enterY }}
             animate={{ opacity: 1, y: 0 }}
-            transition={motionTransition(0.05, 0.45)}
+            transition={enterTransition(0.05, 0.45)}
             className="mt-4 max-w-4xl text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
           >
             {title}
@@ -75,17 +81,17 @@ export function Hero({
             ) : null}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: enterY }}
             animate={{ opacity: 1, y: 0 }}
-            transition={motionTransition(0.1, 0.45)}
+            transition={enterTransition(0.1, 0.45)}
             className="mt-5 max-w-2xl text-sm leading-7 text-white/85 sm:text-base md:text-lg"
           >
             {description}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: enterY }}
             animate={{ opacity: 1, y: 0 }}
-            transition={motionTransition(0.15, 0.45)}
+            transition={enterTransition(0.15, 0.45)}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
           >
             <Link
@@ -112,9 +118,9 @@ export function Hero({
             ) : null}
           </motion.div>
           <motion.ul
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: enterY }}
             animate={{ opacity: 1, y: 0 }}
-            transition={motionTransition(0.2, 0.45)}
+            transition={enterTransition(0.2, 0.45)}
             className="mt-8 grid gap-3 text-sm text-white/85 sm:flex sm:flex-wrap sm:gap-4"
           >
             {trustItems.map((item) => (

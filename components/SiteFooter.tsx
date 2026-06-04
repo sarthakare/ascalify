@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { contactPlatforms, CONTACT_HASH, EMAIL, PHONE } from "@/lib/contact";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const exploreLinks = [
@@ -39,7 +40,7 @@ function PlatformIcon({
 }) {
   const box =
     size === "md"
-      ? "h-9 w-9"
+      ? "h-11 w-11 min-h-11 min-w-11"
       : "h-8 w-8";
   const img = size === "md" ? "h-5 w-5" : "h-4 w-4";
 
@@ -103,6 +104,7 @@ function FooterLink({
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const viewport = useViewportOnce();
 
   return (
     <footer className="relative border-t border-border bg-surface-alt">
@@ -115,7 +117,7 @@ export function SiteFooter() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0, 0.4)}
           className="mt-10 flex flex-col gap-5 rounded-2xl border border-border bg-white/80 p-5 shadow-sm shadow-brand/5 backdrop-blur-sm sm:p-6 md:flex-row md:items-center md:justify-between"
         >
@@ -155,7 +157,7 @@ export function SiteFooter() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0.04, 0.35)}
             className="lg:col-span-4"
           >
@@ -193,7 +195,7 @@ export function SiteFooter() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener noreferrer" : undefined}
                     aria-label={platform.name}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white transition hover:border-brand/30 hover:bg-brand-tint hover:shadow-sm hover:shadow-brand/10"
+                    className="inline-flex h-11 w-11 min-h-11 min-w-11 items-center justify-center rounded-full border border-border bg-white transition hover:border-brand/30 hover:bg-brand-tint hover:shadow-sm hover:shadow-brand/10"
                   >
                     <Image
                       src={platform.icon}
@@ -211,7 +213,7 @@ export function SiteFooter() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0.08, 0.35)}
             className="lg:col-span-2 lg:col-start-6"
           >
@@ -230,7 +232,7 @@ export function SiteFooter() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0.12, 0.35)}
             className="lg:col-span-3"
           >
@@ -249,7 +251,7 @@ export function SiteFooter() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0.16, 0.35)}
             className="lg:col-span-3"
           >

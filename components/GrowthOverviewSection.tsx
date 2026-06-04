@@ -11,7 +11,8 @@ import {
   Users,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 const journeySteps = [
   {
@@ -44,13 +45,15 @@ const metrics = [
 ];
 
 export function GrowthOverviewSection() {
+  const viewport = useViewportOnce();
+
   return (
     <section className="border-y border-border bg-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0)}
           className="mx-auto max-w-3xl text-center"
         >
@@ -74,7 +77,7 @@ export function GrowthOverviewSection() {
                 key={step.title}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
+                viewport={viewport}
                 transition={motionTransition(index * 0.06)}
                 className="rounded-2xl border border-border bg-white p-6"
               >
@@ -103,7 +106,7 @@ export function GrowthOverviewSection() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0.08)}
           className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
         >
@@ -136,7 +139,7 @@ export function GrowthOverviewSection() {
                 key={metric.label}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
+                viewport={viewport}
                 transition={motionTransition(index * 0.05, 0.35)}
                 className="text-center"
               >

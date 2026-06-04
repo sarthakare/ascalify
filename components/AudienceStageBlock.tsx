@@ -6,7 +6,9 @@ import { AudiencePersonas } from "@/components/AudiencePersonas";
 import { AnimateIn } from "@/components/AnimateIn";
 import { audienceStageImages } from "@/lib/audience-images";
 import type { AudienceSegment, Stage } from "@/lib/packages";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 type AudienceStageBlockProps = {
   stage: Stage;
@@ -24,6 +26,7 @@ export function AudienceStageBlock({
   const isFirst = index === 0;
   const imageOnLeft = index % 2 === 1;
   const image = audienceStageImages[stage.id];
+  const viewport = useViewportOnce();
 
   return (
     <div className="relative">
@@ -41,7 +44,7 @@ export function AudienceStageBlock({
         id={stage.id}
         initial={isFirst ? { opacity: 0, y: 12 } : { opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        viewport={viewport}
         transition={{
           duration: isFirst ? 0.5 : 0.75,
           ease: "easeOut",
@@ -64,14 +67,16 @@ export function AudienceStageBlock({
           ) : null}
 
           <div
-            className={`grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10 ${
-              pageTitle ? "mt-10" : "mt-8"
-            }`}
+            className={cn(
+              "flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10",
+              pageTitle ? "mt-10" : "mt-8",
+            )}
           >
             <div
-              className={
-                imageOnLeft ? "lg:order-1" : "lg:order-2"
-              }
+              className={cn(
+                "order-2",
+                imageOnLeft ? "lg:order-1" : "lg:order-2",
+              )}
             >
               {isFirst ? (
                 <AnimateIn variant="fadeUp">
@@ -91,13 +96,14 @@ export function AudienceStageBlock({
             <motion.div
               initial={{ opacity: 0, scale: 0.97, y: 16 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={viewportOnce}
+              viewport={viewport}
               transition={motionTransition(index * 0.05, 0.5)}
-              className={
+              className={cn(
+                "order-1",
                 imageOnLeft
                   ? "lg:order-2 lg:sticky lg:top-28"
-                  : "lg:order-1 lg:sticky lg:top-28"
-              }
+                  : "lg:order-1 lg:sticky lg:top-28",
+              )}
             >
               <div className="overflow-hidden rounded-2xl border border-border bg-white p-2 shadow-lg shadow-brand/5">
                 <Image
@@ -138,7 +144,7 @@ function StageHeader({
           {stage.subtitle}
         </p>
       </div>
-      <span className="text-5xl font-black leading-none text-brand/20 sm:text-6xl">
+      <span className="text-4xl font-black leading-none text-brand/20 sm:text-5xl lg:text-6xl">
         {String(stage.number).padStart(2, "0")}
       </span>
     </div>

@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import type { AudienceSegment, Stage } from "@/lib/packages";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 type AudiencePersonasProps = {
   stage: Stage;
@@ -17,11 +18,13 @@ export function AudiencePersonas({
   segment,
   animationIndex = 0,
 }: AudiencePersonasProps) {
+  const viewport = useViewportOnce();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={viewportOnce}
+      viewport={viewport}
       transition={motionTransition(animationIndex * 0.06 + 0.08, 0.45)}
       className="mt-8 rounded-2xl border border-border border-l-4 border-l-brand bg-white p-5 sm:p-6 md:p-8"
     >
@@ -36,12 +39,13 @@ export function AudiencePersonas({
             key={persona}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(
               animationIndex * 0.04 + index * 0.03,
               0.35,
             )}
             whileHover={{ y: -2 }}
+            whileTap={{ y: -2 }}
             className="flex items-center gap-2.5 rounded-xl border border-border bg-surface-alt px-3 py-2.5 text-sm font-medium text-foreground transition hover:border-brand/35 hover:bg-brand-tint/40"
           >
             <Check className="h-4 w-4 shrink-0 text-brand" strokeWidth={2.5} />

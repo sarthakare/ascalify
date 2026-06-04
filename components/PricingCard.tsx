@@ -7,7 +7,8 @@ import { whatsappPackageLink } from "@/lib/contact";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition, tapOrHoverVariantProps } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const cardHoverVariants: Variants = {
@@ -77,7 +78,7 @@ function PackagePricing({ pkg }: { pkg: Package }) {
   return (
     <div className="pt-3">
       <p className="text-sm font-semibold text-muted">Starting at</p>
-      <div className="mt-1 flex items-end gap-3">
+      <div className="mt-1 flex flex-wrap items-end gap-2 sm:gap-3">
         <div className="relative w-fit">
           <motion.p
             variants={comparePriceVariants}
@@ -98,7 +99,7 @@ function PackagePricing({ pkg }: { pkg: Package }) {
         </div>
         <motion.p
           variants={salePriceVariants}
-          className="text-3xl font-black text-brand leading-none"
+          className="text-2xl font-black text-brand leading-none sm:text-3xl"
         >
           {pkg.priceLabel}
         </motion.p>
@@ -118,18 +119,21 @@ export function PricingCard({
   compact = false,
   animationIndex = 0,
 }: PricingCardProps) {
+  const viewport = useViewportOnce();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={viewportOnce}
+      viewport={viewport}
       transition={motionTransition(animationIndex * 0.06, 0.4)}
+      whileTap={{ y: -2 }}
     >
       <motion.div
         className="h-full"
         variants={cardHoverVariants}
         initial="rest"
-        whileHover="hover"
+        {...tapOrHoverVariantProps}
       >
       <Card
         className={cn(
@@ -152,7 +156,9 @@ export function PricingCard({
             </div>
             {pkg.highlight ? <Badge>Recommended</Badge> : null}
           </div>
-          <PackagePricing pkg={pkg} />
+          <motion.div initial="rest" {...tapOrHoverVariantProps}>
+            <PackagePricing pkg={pkg} />
+          </motion.div>
         </CardHeader>
 
         {!compact ? (

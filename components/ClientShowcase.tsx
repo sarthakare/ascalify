@@ -5,7 +5,8 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { AnimateIn } from "@/components/AnimateIn";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 const outcomes = [
   {
@@ -23,6 +24,8 @@ const outcomes = [
 ];
 
 export function ClientShowcase() {
+  const viewport = useViewportOnce();
+
   return (
     <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
@@ -45,7 +48,7 @@ export function ClientShowcase() {
                   key={item.label}
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={viewportOnce}
+                  viewport={viewport}
                   transition={motionTransition(index * 0.05, 0.35)}
                 >
                   <Card className="p-4">
@@ -60,7 +63,7 @@ export function ClientShowcase() {
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 16 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0.08, 0.45)}
             className="overflow-hidden rounded-3xl border border-border bg-white p-3 shadow-lg shadow-brand/10 sm:p-4"
           >

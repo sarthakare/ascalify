@@ -5,9 +5,12 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_HASH, WHATSAPP_URL } from "@/lib/contact";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 export function FaqHelpSection() {
+  const viewport = useViewportOnce();
+
   return (
     <section className="relative overflow-hidden bg-[#10062f] text-white">
       <div
@@ -23,7 +26,7 @@ export function FaqHelpSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0, 0.45)}
           className="mx-auto max-w-3xl text-center"
         >

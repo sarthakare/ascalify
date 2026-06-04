@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_HASH } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -23,10 +23,6 @@ const menuSpring = { type: "spring" as const, stiffness: 420, damping: 32 };
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
@@ -65,7 +61,7 @@ export function SiteHeader() {
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((prev) => !prev)}
           whileTap={{ scale: 0.9 }}
-          className="order-2 ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:bg-surface-alt md:hidden"
+          className="order-2 ml-auto inline-flex h-11 w-11 min-h-11 min-w-11 items-center justify-center rounded-full border border-border bg-white text-foreground shadow-sm transition hover:bg-surface-alt md:hidden"
         >
           <AnimatePresence mode="wait" initial={false}>
             {mobileOpen ? (

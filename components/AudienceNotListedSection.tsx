@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ArrowRight, HelpCircle, Sparkles } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_HASH, WHATSAPP_URL } from "@/lib/contact";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 const examples = [
   "Nonprofits & NGOs",
@@ -17,6 +18,8 @@ const examples = [
 ];
 
 export function AudienceNotListedSection() {
+  const viewport = useViewportOnce();
+
   return (
     <section className="relative overflow-hidden bg-[#10062f] text-white">
       <div
@@ -32,7 +35,7 @@ export function AudienceNotListedSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0, 0.45)}
           className="mx-auto max-w-3xl text-center lg:max-w-4xl"
         >
@@ -53,7 +56,7 @@ export function AudienceNotListedSection() {
         <motion.ul
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0.06, 0.45)}
           className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2"
         >
@@ -71,7 +74,7 @@ export function AudienceNotListedSection() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(0.12, 0.45)}
           className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
         >

@@ -1,7 +1,12 @@
 "use client";
 
 import { motion, type HTMLMotionProps } from "framer-motion";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useMotionPreferences } from "@/hooks/useMotionPreferences";
+import {
+  getViewportOnce,
+  motionTransition,
+  reducedMotionTransition,
+} from "@/lib/motion";
 
 type AnimateVariant = "fadeUp" | "fadeIn" | "slideLeft" | "scaleIn";
 
@@ -18,6 +23,16 @@ const variants: Record<
   },
 };
 
+const reducedVariants: Record<
+  AnimateVariant,
+  { hidden: Record<string, number>; visible: Record<string, number> }
+> = {
+  fadeUp: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+  fadeIn: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+  slideLeft: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+  scaleIn: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+};
+
 type AnimateInProps = HTMLMotionProps<"div"> & {
   variant?: AnimateVariant;
   delay?: number;
@@ -30,15 +45,21 @@ export function AnimateIn({
   className,
   ...props
 }: AnimateInProps) {
+  const { reducedMotion, isMobile } = useMotionPreferences();
+
   return (
     <motion.div
       {...props}
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={viewportOnce}
-      variants={variants[variant]}
-      transition={motionTransition(delay)}
+      viewport={getViewportOnce(isMobile)}
+      variants={reducedMotion ? reducedVariants[variant] : variants[variant]}
+      transition={
+        reducedMotion
+          ? reducedMotionTransition(delay)
+          : motionTransition(delay)
+      }
     >
       {children}
     </motion.div>

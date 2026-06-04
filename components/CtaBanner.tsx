@@ -4,13 +4,16 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CTA_TAGLINE, SALES_MESSAGE } from "@/lib/packages";
 import { buttonVariants } from "@/components/ui/button";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 
 type CtaBannerProps = {
   showSalesMessage?: boolean;
 };
 
 export function CtaBanner({ showSalesMessage = true }: CtaBannerProps) {
+  const viewport = useViewportOnce();
+
   return (
     <section className="bg-brand">
       <div className="mx-auto max-w-6xl px-5 py-14 text-center text-white sm:px-6">
@@ -18,7 +21,7 @@ export function CtaBanner({ showSalesMessage = true }: CtaBannerProps) {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewportOnce}
+            viewport={viewport}
             transition={motionTransition(0)}
             className="mx-auto max-w-2xl text-sm leading-7 text-white/90 md:text-base"
           >
@@ -28,7 +31,7 @@ export function CtaBanner({ showSalesMessage = true }: CtaBannerProps) {
         <motion.h2
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(showSalesMessage ? 0.06 : 0)}
           className="mt-6 text-2xl font-bold md:text-3xl"
         >
@@ -37,7 +40,7 @@ export function CtaBanner({ showSalesMessage = true }: CtaBannerProps) {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewportOnce}
+          viewport={viewport}
           transition={motionTransition(showSalesMessage ? 0.12 : 0.06)}
           className="mt-8 flex flex-wrap justify-center gap-4"
         >

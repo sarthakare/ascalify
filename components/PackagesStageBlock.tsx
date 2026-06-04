@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { PricingCard } from "@/components/PricingCard";
 import { AnimateIn } from "@/components/AnimateIn";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
 import type { Package, Stage } from "@/lib/packages";
 
 type PackagesStageBlockProps = {
@@ -19,6 +20,7 @@ export function PackagesStageBlock({
   pageTitle,
 }: PackagesStageBlockProps) {
   const isFirstPage = index === 0;
+  const viewport = useViewportOnce();
 
   return (
     <div className="relative">
@@ -38,7 +40,7 @@ export function PackagesStageBlock({
           isFirstPage ? { opacity: 0, y: 12 } : { opacity: 0, y: 28 }
         }
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        viewport={viewport}
         transition={{
           duration: isFirstPage ? 0.5 : 0.75,
           ease: "easeOut",

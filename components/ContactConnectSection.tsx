@@ -14,7 +14,8 @@ import {
   PHONE_TEL,
   WHATSAPP_URL,
 } from "@/lib/contact";
-import { motionTransition, viewportOnce } from "@/lib/motion";
+import { useViewportOnce } from "@/hooks/useViewportOnce";
+import { motionTransition } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 function SectionShell({
@@ -29,13 +30,14 @@ function SectionShell({
   className?: string;
 }) {
   const isFirst = index === 0;
+  const viewport = useViewportOnce();
 
   return (
     <motion.section
       id={id}
       initial={isFirst ? { opacity: 0, y: 12 } : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={viewport}
       transition={{ duration: isFirst ? 0.5 : 0.65, ease: "easeOut" }}
       className={cn(
         "scroll-mt-28 overflow-hidden",
@@ -73,7 +75,7 @@ function SectionHeader({
           {subtitle}
         </p>
       </div>
-      <span className="text-5xl font-black leading-none text-brand/20 sm:text-6xl">
+      <span className="text-4xl font-black leading-none text-brand/20 sm:text-5xl lg:text-6xl">
         {String(index + 1).padStart(2, "0")}
       </span>
     </div>
@@ -81,6 +83,8 @@ function SectionHeader({
 }
 
 export function ContactConnectSection() {
+  const viewport = useViewportOnce();
+
   return (
     <>
       <SectionShell index={0}>
@@ -139,7 +143,7 @@ export function ContactConnectSection() {
           />
         </AnimateIn>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {contactPlatforms.map((platform, index) => {
             const isExternal = platform.href.startsWith("http");
 
@@ -151,10 +155,11 @@ export function ContactConnectSection() {
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
+                viewport={viewport}
                 transition={motionTransition(index * 0.05, 0.35)}
                 whileHover={{ y: -4 }}
-                className="flex min-h-52 flex-col rounded-2xl border border-border border-l-4 border-l-brand bg-white p-5 shadow-sm transition hover:border-brand/40 hover:shadow-lg hover:shadow-brand/10 sm:p-6"
+                whileTap={{ y: -2 }}
+                className="flex min-h-44 flex-col rounded-2xl border border-border border-l-4 border-l-brand bg-white p-5 shadow-sm transition hover:border-brand/40 hover:shadow-lg hover:shadow-brand/10 sm:min-h-52 sm:p-6"
               >
                 <div
                   className={cn(
@@ -231,9 +236,10 @@ export function ContactConnectSection() {
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewportOnce}
+                viewport={viewport}
                 transition={motionTransition(index * 0.06, 0.35)}
                 whileHover={{ y: -3 }}
+                whileTap={{ y: -2 }}
                 className="rounded-2xl border border-border border-l-4 border-l-brand bg-white p-5 transition hover:border-brand/35 hover:shadow-md hover:shadow-brand/5 sm:p-6"
               >
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-tint text-brand">

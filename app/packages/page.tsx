@@ -1,8 +1,6 @@
-import Link from "next/link";
-import { AnimateIn } from "@/components/AnimateIn";
 import { CtaBanner } from "@/components/CtaBanner";
 import { PackagesStageBlock } from "@/components/PackagesStageBlock";
-import { getPackagesByStage, packages, stages } from "@/lib/packages";
+import { getPackagesByStage, stages } from "@/lib/packages";
 
 export default function PackagesPage() {
   return (
