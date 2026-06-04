@@ -52,7 +52,7 @@ const salePriceVariants: Variants = {
   rest: {
     opacity: 1,
     y: 0,
-    scale: 0.92,
+    scale: 1,
     textShadow: "0 0 0 rgba(103,61,230,0)",
   },
   hover: {
@@ -77,30 +77,32 @@ function PackagePricing({ pkg }: { pkg: Package }) {
   return (
     <div className="pt-3">
       <p className="text-sm font-semibold text-muted">Starting at</p>
-      <div className="relative mt-1 w-fit">
+      <div className="mt-1 flex items-end gap-3">
+        <div className="relative w-fit">
+          <motion.p
+            variants={comparePriceVariants}
+            className="text-lg font-bold text-muted/80"
+          >
+            {pkg.compareAtPriceLabel}
+          </motion.p>
+          <motion.span
+            aria-hidden
+            variants={slashVariants}
+            className="pointer-events-none absolute top-[43%] left-[-8%] h-1 w-[116%] origin-left rounded-full bg-red-500 shadow-[0_0_14px_rgba(239,68,68,0.55)]"
+          />
+          <motion.span
+            aria-hidden
+            variants={slashGlowVariants}
+            className="pointer-events-none absolute top-[52%] left-[-8%] h-2 w-14 -translate-y-1/2 rounded-full bg-linear-to-r from-transparent via-red-100 to-transparent blur-[2px]"
+          />
+        </div>
         <motion.p
-          variants={comparePriceVariants}
-          className="text-2xl font-bold text-muted/80"
+          variants={salePriceVariants}
+          className="text-3xl font-black text-brand leading-none"
         >
-          {pkg.compareAtPriceLabel}
+          {pkg.priceLabel}
         </motion.p>
-        <motion.span
-          aria-hidden
-          variants={slashVariants}
-          className="pointer-events-none absolute top-[52%] left-[-8%] h-1 w-[116%] origin-left rounded-full bg-linear-to-r from-transparent via-red-500 to-transparent shadow-[0_0_14px_rgba(239,68,68,0.55)]"
-        />
-        <motion.span
-          aria-hidden
-          variants={slashGlowVariants}
-          className="pointer-events-none absolute top-[52%] left-[-8%] h-2 w-14 -translate-y-1/2 rounded-full bg-linear-to-r from-transparent via-red-100 to-transparent blur-[2px]"
-        />
       </div>
-      <motion.p
-        variants={salePriceVariants}
-        className="mt-0.5 text-3xl font-black text-brand"
-      >
-        {pkg.priceLabel}
-      </motion.p>
     </div>
   );
 }

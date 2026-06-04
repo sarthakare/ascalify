@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
 import { motionTransition, viewportOnce } from "@/lib/motion";
 
 type FaqItem = {
@@ -11,32 +10,34 @@ type FaqItem = {
 
 type FaqListProps = {
   items: FaqItem[];
+  animationOffset?: number;
 };
 
-export function FaqList({ items }: FaqListProps) {
+export function FaqList({ items, animationOffset = 0 }: FaqListProps) {
   return (
-    <div className="space-y-4">
+    <div className="mt-8 space-y-4">
       {items.map((faq, index) => (
         <motion.div
           key={faq.question}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
-          transition={motionTransition(index * 0.04, 0.35)}
+          transition={motionTransition(
+            animationOffset * 0.04 + index * 0.05,
+            0.35,
+          )}
         >
-          <Card className="overflow-hidden transition hover:border-brand/30">
-            <details className="group p-5">
-              <summary className="cursor-pointer list-none text-base font-semibold text-foreground marker:content-none [&::-webkit-details-marker]:hidden">
-                <span className="flex items-center justify-between gap-4">
-                  {faq.question}
-                  <span className="text-brand transition duration-200 group-open:rotate-45">
-                    +
-                  </span>
+          <details className="group rounded-2xl border border-border border-l-4 border-l-brand bg-white p-5 shadow-sm transition hover:border-brand/35 hover:shadow-md hover:shadow-brand/5 sm:p-6">
+            <summary className="cursor-pointer list-none text-base font-semibold text-foreground marker:content-none [&::-webkit-details-marker]:hidden">
+              <span className="flex items-center justify-between gap-4">
+                {faq.question}
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-tint text-lg font-bold text-brand transition duration-200 group-open:rotate-45">
+                  +
                 </span>
-              </summary>
-              <p className="mt-3 text-sm leading-6 text-muted">{faq.answer}</p>
-            </details>
-          </Card>
+              </span>
+            </summary>
+            <p className="mt-3 text-sm leading-6 text-muted">{faq.answer}</p>
+          </details>
         </motion.div>
       ))}
     </div>

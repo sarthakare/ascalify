@@ -230,8 +230,15 @@ export const packages: Package[] = [
   },
 ];
 
-export const audienceSegments = [
+export type AudienceSegment = {
+  stageId: StageId;
+  priceBand: string;
+  personas: string[];
+};
+
+export const audienceSegments: AudienceSegment[] = [
   {
+    stageId: "stage-1",
     priceBand: "$99 – $499",
     personas: [
       "Freelancers",
@@ -246,6 +253,7 @@ export const audienceSegments = [
     ],
   },
   {
+    stageId: "stage-2",
     priceBand: "$999 – $2,999",
     personas: [
       "Growing Businesses",
@@ -257,6 +265,7 @@ export const audienceSegments = [
     ],
   },
   {
+    stageId: "stage-3",
     priceBand: "$4,999 – $9,999+",
     personas: [
       "SMEs",
@@ -299,6 +308,41 @@ export const faqs = [
     question: "What do I need to provide before work starts?",
     answer:
       "We typically need your logo, brand colors (if any), content or page outline, and examples of sites you like. We guide you through a short discovery call before development begins.",
+  },
+];
+
+export type FaqGroup = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  questionIndices: number[];
+};
+
+export const faqGroups: FaqGroup[] = [
+  {
+    id: "packages-delivery",
+    eyebrow: "Packages & delivery",
+    title: "Timelines, support, and what's included",
+    subtitle:
+      "Understand delivery windows, maintenance coverage, and what comes with each Ascalify package.",
+    questionIndices: [0, 1],
+  },
+  {
+    id: "scaling-features",
+    eyebrow: "Scaling & features",
+    title: "Upgrades, SSL, and mobile-ready builds",
+    subtitle:
+      "Learn how you can grow between stages and what technical essentials are included from day one.",
+    questionIndices: [2, 3],
+  },
+  {
+    id: "enterprise-onboarding",
+    eyebrow: "Enterprise & onboarding",
+    title: "Quotes, requirements, and getting started",
+    subtitle:
+      "Custom enterprise proposals and what to prepare before your project kickoff call.",
+    questionIndices: [4, 5],
   },
 ];
 

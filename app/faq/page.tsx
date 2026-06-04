@@ -1,21 +1,23 @@
 import { CtaBanner } from "@/components/CtaBanner";
-import { FaqList } from "@/components/FaqList";
-import { PageIntro } from "@/components/PageIntro";
-import { faqs } from "@/lib/packages";
+import { FaqGroupBlock } from "@/components/FaqGroupBlock";
+import { FaqHelpSection } from "@/components/FaqHelpSection";
+import { faqGroups } from "@/lib/packages";
 
 export default function FaqPage() {
   return (
-    <main>
-      <PageIntro
-        title="Frequently Asked Questions"
-        description="Answers about delivery timelines, support, upgrades, and getting started with your Ascalify website package."
-      />
+    <main className="overflow-x-hidden">
+      {faqGroups.map((group, index) => (
+        <FaqGroupBlock
+          key={group.id}
+          group={group}
+          index={index}
+          pageTitle={
+            index === 0 ? "Frequently Asked Questions" : undefined
+          }
+        />
+      ))}
 
-      <section className="bg-surface-alt pb-16">
-        <div className="mx-auto max-w-3xl px-6">
-          <FaqList items={faqs} />
-        </div>
-      </section>
+      <FaqHelpSection />
 
       <CtaBanner showSalesMessage={false} />
     </main>
