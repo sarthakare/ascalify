@@ -4,19 +4,11 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
-import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  CONTACT_HASH,
-  EMAIL,
-  INSTAGRAM_URL,
-  PHONE,
-  PHONE_TEL,
-  WHATSAPP_URL,
-  X_URL,
-} from "@/lib/contact";
+import { contactPlatforms, CONTACT_HASH, EMAIL, PHONE } from "@/lib/contact";
 import { motionTransition, viewportOnce } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const exploreLinks = [
   { href: "/", label: "Home" },
@@ -32,34 +24,44 @@ const packageLinks = [
   { href: "/packages#stage-3", label: "Stage 3 — Scale" },
 ];
 
-function InstagramIcon({ className }: { className?: string }) {
+const footerContactItems = contactPlatforms.filter((p) =>
+  ["WhatsApp", "Email", "Phone"].includes(p.name),
+);
+
+function PlatformIcon({
+  name,
+  src,
+  size = "sm",
+}: {
+  name: string;
+  src: string;
+  size?: "sm" | "md";
+}) {
+  const box =
+    size === "md"
+      ? "h-9 w-9"
+      : "h-8 w-8";
+  const img = size === "md" ? "h-5 w-5" : "h-4 w-4";
+
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
+    <span
+      className={cn(
+        "flex shrink-0 items-center justify-center rounded-full border border-border bg-white",
+        box,
+        name === "X" && "bg-surface-alt",
+      )}
     >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
+      <Image
+        src={src}
+        alt=""
+        width={20}
+        height={20}
+        className={cn(img, "object-contain")}
+        aria-hidden
+      />
+    </span>
   );
 }
-
-const socialLinks: {
-  href: string;
-  label: string;
-  icon: LucideIcon | typeof InstagramIcon;
-}[] = [
-  { href: WHATSAPP_URL, label: "WhatsApp", icon: MessageCircle },
-  { href: `mailto:${EMAIL}`, label: "Email", icon: Mail },
-  { href: INSTAGRAM_URL, label: "Instagram", icon: InstagramIcon },
-];
 
 function FooterLink({
   href,
@@ -71,7 +73,7 @@ function FooterLink({
   external?: boolean;
 }) {
   const className =
-    "group inline-flex items-center text-sm text-white/75 transition hover:text-white";
+    "group inline-flex items-center text-sm text-muted transition hover:text-brand";
 
   if (external) {
     return (
@@ -83,7 +85,7 @@ function FooterLink({
       >
         <span className="relative">
           {children}
-          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand-tint transition-all duration-300 group-hover:w-full" />
+          <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand/60 transition-all duration-300 group-hover:w-full" />
         </span>
       </a>
     );
@@ -93,7 +95,7 @@ function FooterLink({
     <Link href={href} className={className}>
       <span className="relative">
         {children}
-        <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand-tint transition-all duration-300 group-hover:w-full" />
+        <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand/60 transition-all duration-300 group-hover:w-full" />
       </span>
     </Link>
   );
@@ -103,40 +105,34 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-[#10062f] text-white">
+    <footer className="relative border-t border-border bg-surface-alt">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] bg-[#2f147d] lg:block [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] bg-[#6d3ff0]/50 lg:block [clip-path:polygon(60%_0,100%_0,100%_38%,78%_38%,100%_100%,55%_100%,18%_55%,50%_55%,18%_15%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-brand-tint/50 to-transparent"
       />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
-          transition={motionTransition(0, 0.45)}
-          className="flex flex-col gap-6 border-b border-white/10 py-12 md:flex-row md:items-center md:justify-between md:py-14"
+          transition={motionTransition(0, 0.4)}
+          className="mt-10 flex flex-col gap-5 rounded-2xl border border-border bg-white/80 p-5 shadow-sm shadow-brand/5 backdrop-blur-sm sm:p-6 md:flex-row md:items-center md:justify-between"
         >
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
               Ready to launch?
             </p>
-            <p className="mt-2 text-xl font-black sm:text-2xl">
+            <p className="mt-1.5 text-lg font-bold text-foreground sm:text-xl">
               Start at $99. Scale beyond limits.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
             <Link
               href="/packages"
               className={buttonVariants({
-                variant: "outline",
-                size: "lg",
-                className:
-                  "w-full border-white bg-white text-[#10062f] hover:bg-brand-tint sm:w-auto",
+                size: "default",
+                className: "w-full sm:w-auto",
               })}
             >
               View Packages
@@ -145,10 +141,9 @@ export function SiteFooter() {
             <Link
               href={CONTACT_HASH}
               className={buttonVariants({
-                variant: "ghost",
-                size: "lg",
-                className:
-                  "w-full border border-white/40 text-white hover:bg-white/10 hover:text-white sm:w-auto",
+                variant: "outline",
+                size: "default",
+                className: "w-full sm:w-auto",
               })}
             >
               1 Click Connect
@@ -158,15 +153,15 @@ export function SiteFooter() {
 
         <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
-            transition={motionTransition(0.04, 0.4)}
+            transition={motionTransition(0.04, 0.35)}
             className="lg:col-span-4"
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-3 rounded-2xl bg-white/5 px-3 py-2 ring-1 ring-white/10 transition hover:bg-white/10"
+              className="inline-flex items-center gap-3 rounded-2xl border border-border bg-white px-3 py-2 transition hover:border-brand/25 hover:shadow-sm hover:shadow-brand/5"
             >
               <Image
                 src="/icon_trans_bg.png"
@@ -176,49 +171,51 @@ export function SiteFooter() {
                 className="h-10 w-10 rounded-full bg-brand-tint object-contain p-1"
               />
               <span className="text-left">
-                <span className="block text-sm font-black">Ascalify</span>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-tint">
+                <span className="block text-sm font-black text-foreground">
+                  Ascalify
+                </span>
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.16em] text-brand">
                   Scale Beyond Limits
                 </span>
               </span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-white/65">
+            <p className="mt-4 max-w-xs text-sm leading-6 text-muted">
               Website packages for freelancers, growing businesses, and
               enterprises — built to launch fast and scale with you.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              {socialLinks.map(({ href, label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/80 transition hover:border-brand-tint/50 hover:bg-brand/30 hover:text-white"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
-              <a
-                href={X_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-xs font-bold text-white/80 transition hover:border-brand-tint/50 hover:bg-brand/30 hover:text-white"
-              >
-                X
-              </a>
+              {contactPlatforms.map((platform) => {
+                const isExternal = platform.href.startsWith("http");
+                return (
+                  <a
+                    key={platform.name}
+                    href={platform.href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    aria-label={platform.name}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white transition hover:border-brand/30 hover:bg-brand-tint hover:shadow-sm hover:shadow-brand/10"
+                  >
+                    <Image
+                      src={platform.icon}
+                      alt={`${platform.name} logo`}
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 object-contain"
+                    />
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
-            transition={motionTransition(0.08, 0.4)}
+            transition={motionTransition(0.08, 0.35)}
             className="lg:col-span-2 lg:col-start-6"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/45">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
               Explore
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -231,13 +228,13 @@ export function SiteFooter() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
-            transition={motionTransition(0.12, 0.4)}
+            transition={motionTransition(0.12, 0.35)}
             className="lg:col-span-3"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/45">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
               Packages
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -250,60 +247,56 @@ export function SiteFooter() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
-            transition={motionTransition(0.16, 0.4)}
+            transition={motionTransition(0.16, 0.35)}
             className="lg:col-span-3"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/45">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
               Contact
             </p>
             <ul className="mt-4 space-y-3">
-              <li>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 text-sm text-white/75 transition hover:text-white"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/30">
-                    <MessageCircle className="h-4 w-4 text-brand-tint" />
-                  </span>
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-2.5 text-sm text-white/75 transition hover:text-white"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/30">
-                    <Mail className="h-4 w-4 text-brand-tint" />
-                  </span>
-                  <span className="break-all">{EMAIL}</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={PHONE_TEL}
-                  className="flex items-center gap-2.5 text-sm text-white/75 transition hover:text-white"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/30">
-                    <Phone className="h-4 w-4 text-brand-tint" />
-                  </span>
-                  {PHONE}
-                </a>
-              </li>
+              {footerContactItems.map((platform) => {
+                const isExternal = platform.href.startsWith("http");
+                const label =
+                  platform.name === "Email"
+                    ? EMAIL
+                    : platform.name === "Phone"
+                      ? PHONE
+                      : platform.name;
+
+                return (
+                  <li key={platform.name}>
+                    <a
+                      href={platform.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      className="flex items-center gap-2.5 text-sm text-muted transition hover:text-brand"
+                    >
+                      <PlatformIcon
+                        name={platform.name}
+                        src={platform.icon}
+                        size="md"
+                      />
+                      <span
+                        className={cn(
+                          platform.name === "Email" && "break-all",
+                        )}
+                      >
+                        {label}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 border-t border-border py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Ascalify. All rights reserved.</p>
-          <p className="font-medium text-white/55">
-            Website packages · Start online · Grow · Scale
-          </p>
+          <p>Website packages · Start online · Grow · Scale</p>
         </div>
       </div>
     </footer>

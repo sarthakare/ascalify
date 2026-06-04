@@ -1,14 +1,11 @@
 import { ContactConnectSection } from "@/components/ContactConnectSection";
-import { PageIntro } from "@/components/PageIntro";
+import { CtaBanner } from "@/components/CtaBanner";
 
 export default function ContactPage() {
   return (
-    <main>
-      <PageIntro
-        title="Contact Ascalify"
-        description="Ready to start your website? Reach out and we'll help you pick the right package for your stage of growth."
-      />
+    <main className="overflow-x-hidden">
       <ContactConnectSection />
+      <CtaBanner showSalesMessage={false} />
     </main>
   );
 }
