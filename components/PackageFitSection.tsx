@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { CONTACT_HASH } from "@/lib/contact";
+import { motionTransition, viewportOnce } from "@/lib/motion";
 
 export function PackageFitSection() {
   return (
@@ -23,8 +24,8 @@ export function PackageFitSection() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.5 }}
+          viewport={viewportOnce}
+          transition={motionTransition(0, 0.45)}
         >
           <p className="text-sm font-bold uppercase tracking-[0.22em] text-white/60">
             Smart package guidance
@@ -54,8 +55,8 @@ export function PackageFitSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 24 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.55 }}
+          viewport={viewportOnce}
+          transition={motionTransition(0.08, 0.5)}
           className="relative"
         >
           <div className="overflow-hidden rounded-4xl border border-white/15 bg-white/10 p-3 shadow-2xl shadow-black/30 backdrop-blur">

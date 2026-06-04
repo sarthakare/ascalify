@@ -1,19 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-
-const clientNames = [
-  "Aarogya Clinic",
-  "UrbanBite Cafe",
-  "PrimeFit Studio",
-  "LegalNest Advisors",
-  "HomeKey Realty",
-  "SwiftLogix",
-  "BrightPath Coaching",
-  "MarketFlow Agency",
-];
+import { AnimateIn } from "@/components/AnimateIn";
+import { motionTransition, viewportOnce } from "@/lib/motion";
 
 const outcomes = [
   {
@@ -33,43 +25,54 @@ const outcomes = [
 export function ClientShowcase() {
   return (
     <section className="bg-white py-16 md:py-20">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
-            <Badge variant="secondary">Our clients</Badge>
-            <h2 className="mt-4 text-2xl font-bold text-foreground md:text-4xl">
-              Built for local brands, service teams, startups, and enterprises.
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-muted md:text-base">
-              Ascalify helps clients move from a simple online presence to
-              scalable digital platforms. Add your real client names or logos
-              here as your portfolio grows.
-            </p>
+            <AnimateIn variant="fadeUp">
+              <Badge variant="secondary">Our clients</Badge>
+              <h2 className="mt-4 text-2xl font-bold text-foreground md:text-4xl">
+                Built for local brands, service teams, startups, and enterprises.
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-muted md:text-base">
+                From clinics and cafes to logistics, coaching, and agencies — we
+                build websites that help businesses look professional and grow
+                online.
+              </p>
+            </AnimateIn>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {outcomes.map((item) => (
-                <Card key={item.label} className="p-4">
-                  <p className="text-xl font-black text-brand">{item.value}</p>
-                  <p className="mt-1 text-xs text-muted">{item.label}</p>
-                </Card>
+              {outcomes.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={motionTransition(index * 0.05, 0.35)}
+                >
+                  <Card className="p-4">
+                    <p className="text-xl font-black text-brand">{item.value}</p>
+                    <p className="mt-1 text-xs text-muted">{item.label}</p>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {clientNames.map((name, index) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.35, delay: index * 0.04 }}
-                whileHover={{ y: -4 }}
-                className="flex min-h-24 items-center justify-center rounded-2xl border border-border bg-surface-alt px-4 text-center text-sm font-bold text-foreground shadow-sm"
-              >
-                {name}
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98, y: 16 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={motionTransition(0.08, 0.45)}
+            className="overflow-hidden rounded-3xl border border-border bg-white p-3 shadow-lg shadow-brand/10 sm:p-4"
+          >
+            <Image
+              src="/ascalify-client-logos.png"
+              alt="Ascalify client logos including Aarogya Clinic, UrbanBite Cafe, PrimeFit Studio, LegalNest Advisors, HomeKey Realty, SwiftLogix, BrightPath Coaching, and MarketFlow Agency"
+              width={1200}
+              height={600}
+              className="h-auto w-full rounded-2xl object-contain"
+              sizes="(min-width: 1024px) 560px, 100vw"
+            />
+          </motion.div>
         </div>
       </div>
     </section>

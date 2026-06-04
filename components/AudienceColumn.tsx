@@ -4,19 +4,26 @@ import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
+import { motionTransition, viewportOnce } from "@/lib/motion";
+
 type AudienceColumnProps = {
   priceBand: string;
   personas: string[];
+  animationIndex?: number;
 };
 
-export function AudienceColumn({ priceBand, personas }: AudienceColumnProps) {
+export function AudienceColumn({
+  priceBand,
+  personas,
+  animationIndex = 0,
+}: AudienceColumnProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45 }}
-      whileHover={{ y: -4 }}
+      viewport={viewportOnce}
+      transition={motionTransition(animationIndex * 0.06, 0.4)}
+      whileHover={{ y: -3 }}
     >
       <Card className="h-full transition hover:border-brand/40 hover:shadow-lg">
         <CardHeader>

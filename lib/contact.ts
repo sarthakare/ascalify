@@ -36,7 +36,7 @@ export const contactPlatforms = [
 
 export function whatsappPackageLink(packageName: string) {
   const text = encodeURIComponent(
-    `Hi Ascalify, I'm interested in the ${packageName} website package.`,
+    `Hi Ascalify, I am interested in the ${packageName} website package.`,
   );
   return `${WHATSAPP_URL}?text=${text}`;
 }

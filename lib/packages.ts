@@ -4,6 +4,8 @@ export type Package = {
   id: string;
   stageId: StageId;
   name: string;
+  /** Higher reference price shown struck through above the sale price. */
+  compareAtPriceLabel: string;
   priceLabel: string;
   tagline: string;
   features: string[];
@@ -61,6 +63,7 @@ export const packages: Package[] = [
     id: "basic",
     stageId: "stage-1",
     name: "Basic",
+    compareAtPriceLabel: "$149",
     priceLabel: "$99",
     tagline: "Perfect for individuals needing an online presence.",
     features: [
@@ -77,6 +80,7 @@ export const packages: Package[] = [
     id: "starter",
     stageId: "stage-1",
     name: "Starter",
+    compareAtPriceLabel: "$449",
     priceLabel: "$299",
     tagline: "For small businesses and service providers.",
     features: [
@@ -96,6 +100,7 @@ export const packages: Package[] = [
     id: "professional",
     stageId: "stage-1",
     name: "Professional",
+    compareAtPriceLabel: "$749",
     priceLabel: "$499",
     tagline: "For businesses wanting a strong online presence.",
     features: [
@@ -114,6 +119,7 @@ export const packages: Package[] = [
     id: "growth",
     stageId: "stage-2",
     name: "Growth",
+    compareAtPriceLabel: "$1,499",
     priceLabel: "$999",
     tagline: "Built for companies ready to expand their digital footprint.",
     features: [
@@ -132,6 +138,7 @@ export const packages: Package[] = [
     id: "business-plus",
     stageId: "stage-2",
     name: "Business Plus",
+    compareAtPriceLabel: "$2,999",
     priceLabel: "$1,999",
     tagline: "For teams that need more features and faster support.",
     features: [
@@ -151,6 +158,7 @@ export const packages: Package[] = [
     id: "business-pro",
     stageId: "stage-2",
     name: "Business Pro",
+    compareAtPriceLabel: "$4,499",
     priceLabel: "$2,999",
     tagline: "Full-featured platform for ambitious growing brands.",
     features: [
@@ -168,6 +176,7 @@ export const packages: Package[] = [
     id: "scale",
     stageId: "stage-3",
     name: "Scale",
+    compareAtPriceLabel: "$7,499",
     priceLabel: "$4,999",
     tagline: "Custom business platform for established operations.",
     features: [
@@ -185,6 +194,7 @@ export const packages: Package[] = [
     id: "enterprise",
     stageId: "stage-3",
     name: "Enterprise",
+    compareAtPriceLabel: "$9,999",
     priceLabel: "$6,999",
     tagline: "Enterprise-grade web application with dedicated oversight.",
     features: [
@@ -203,6 +213,7 @@ export const packages: Package[] = [
     id: "enterprise-plus",
     stageId: "stage-3",
     name: "Enterprise Plus",
+    compareAtPriceLabel: "$14,999+",
     priceLabel: "$9,999+",
     tagline: "End-to-end digital transformation with a dedicated team.",
     features: [

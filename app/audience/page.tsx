@@ -14,11 +14,12 @@ export default function AudiencePage() {
       <section className="bg-surface-alt pb-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-6 md:grid-cols-3">
-            {audienceSegments.map((segment) => (
+            {audienceSegments.map((segment, index) => (
               <AudienceColumn
                 key={segment.priceBand}
                 priceBand={segment.priceBand}
                 personas={segment.personas}
+                animationIndex={index}
               />
             ))}
           </div>
