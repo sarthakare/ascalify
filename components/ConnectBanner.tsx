@@ -21,7 +21,7 @@ export function ConnectBanner() {
         transition={{ duration: 0.8 }}
         className="absolute right-0 top-0 hidden h-full w-[42%] bg-[#7c55f2] md:block [clip-path:polygon(52%_0,100%_0,100%_28%,74%_28%,100%_78%,100%_100%,55%_100%,20%_58%,58%_58%,20%_18%)]"
       />
-      <div className="relative mx-auto max-w-6xl px-6 py-16 text-white md:py-24">
+      <div className="relative mx-auto max-w-6xl px-5 py-14 text-white sm:px-6 sm:py-16 md:py-24">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export function ConnectBanner() {
             <MessageCircle className="h-4 w-4" />
             1 Click Connect
           </span>
-          <h2 className="mt-6 text-4xl font-black leading-tight md:text-6xl">
+          <h2 className="mt-6 text-3xl font-black leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
             Not sure which package fits your business?
           </h2>
           <p className="mt-5 max-w-md text-sm leading-7 text-white/85 md:text-base">
@@ -46,7 +46,7 @@ export function ConnectBanner() {
               variant: "outline",
               size: "lg",
               className:
-                "mt-10 border-white bg-white text-[#2f147d] hover:bg-brand-tint",
+                "mt-10 w-full border-white bg-white text-[#2f147d] hover:bg-brand-tint sm:w-auto",
             })}
           >
             Connect with Ascalify

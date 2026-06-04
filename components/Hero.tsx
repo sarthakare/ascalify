@@ -47,15 +47,15 @@ export function Hero({
       </video>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 "
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(16,6,47,0.65),rgba(16,6,47,0.72)),radial-gradient(circle_at_20%_20%,rgba(103,61,230,0.25),transparent_45%)]"
       />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24">
+      <div className="relative mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-16 md:py-24">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-sm font-semibold uppercase tracking-[0.2em] text-brand"
+            className="text-xs font-semibold uppercase tracking-[0.2em] text-brand sm:text-sm"
           >
             {eyebrow}
           </motion.p>
@@ -63,7 +63,7 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="mt-4 max-w-4xl text-4xl font-extrabold leading-tight text-white md:text-6xl"
+            className="mt-4 max-w-4xl text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
           >
             {title}
             {highlight ? (
@@ -77,7 +77,7 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-5 max-w-2xl text-base leading-7 text-muted md:text-lg"
+            className="mt-5 max-w-2xl text-sm leading-7 text-white/85 sm:text-base md:text-lg"
           >
             {description}
           </motion.p>
@@ -85,11 +85,14 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-8 flex flex-wrap gap-4"
+            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
           >
             <Link
               href={primaryHref}
-              className={buttonVariants({ size: "lg" })}
+              className={buttonVariants({
+                size: "lg",
+                className: "w-full justify-center sm:w-auto",
+              })}
             >
               {primaryLabel}
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -97,7 +100,11 @@ export function Hero({
             {secondaryHref && secondaryLabel ? (
               <Link
                 href={secondaryHref}
-                className={buttonVariants({ variant: "outline", size: "lg" })}
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  className: "w-full justify-center sm:w-auto",
+                })}
               >
                 {secondaryLabel}
               </Link>
@@ -107,10 +114,13 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 flex flex-wrap gap-4 text-sm text-muted"
+            className="mt-8 grid gap-3 text-sm text-white/85 sm:flex sm:flex-wrap sm:gap-4"
           >
             {trustItems.map((item) => (
-              <li key={item} className="inline-flex items-center gap-2">
+              <li
+                key={item}
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-2"
+              >
                 <CheckCircle2 className="h-4 w-4 text-brand" />
                 {item}
               </li>

@@ -27,7 +27,7 @@ export default function ContactPage() {
       />
 
       <section id="connect" className="scroll-mt-28 bg-surface-alt pb-16">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mb-8 rounded-3xl bg-brand px-6 py-10 text-white shadow-2xl shadow-brand/20 md:px-10">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/70">
               1 Click Connect
@@ -41,7 +41,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {contactPlatforms.map((platform) => {
               const Icon =
                 platformIcons[platform.name as keyof typeof platformIcons];
@@ -53,7 +53,7 @@ export default function ContactPage() {
                   href={platform.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="flex min-h-56 flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-xl hover:shadow-brand/10"
+                  className="flex min-h-48 flex-col rounded-2xl border border-border bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-xl hover:shadow-brand/10 sm:min-h-56 sm:p-6"
                 >
                   <Icon className="h-8 w-8 text-brand" />
                   <h3 className="mt-4 text-lg font-bold">{platform.name}</h3>

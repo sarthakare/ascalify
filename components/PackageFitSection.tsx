@@ -19,7 +19,7 @@ export function PackageFitSection() {
         className="absolute right-0 top-0 hidden h-full w-[48%] bg-[#6d3ff0] opacity-80 lg:block [clip-path:polygon(66%_0,100%_0,100%_42%,76%_42%,100%_100%,58%_100%,20%_58%,52%_58%,20%_18%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-20">
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-20">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ export function PackageFitSection() {
           <p className="text-sm font-bold uppercase tracking-[0.22em] text-white/60">
             Smart package guidance
           </p>
-          <h2 className="mt-5 text-4xl font-black leading-tight md:text-5xl">
+          <h2 className="mt-5 text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
             Not sure which website package to choose?
           </h2>
           <p className="mt-5 max-w-lg text-sm leading-7 text-white/75 md:text-base">
@@ -43,7 +43,7 @@ export function PackageFitSection() {
               variant: "outline",
               size: "lg",
               className:
-                "mt-9 border-white bg-white text-[#10062f] hover:bg-brand-tint",
+                "mt-9 w-full border-white bg-white text-[#10062f] hover:bg-brand-tint sm:w-auto",
             })}
           >
             Find My Package
