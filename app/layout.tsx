@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ascalify | Custom SaaS and Application Development",
+  title: "Ascalify | Website Packages — Scale Beyond Limits",
   description:
-    "Ascalify builds customizable SaaS platforms, web applications, and mobile apps tailored to your business goals.",
+    "Website packages from $99 to enterprise. Start online, grow your business, and scale beyond limits with Ascalify.",
   icons: {
-    icon: "/icon_black_bg.png",
-    shortcut: "/icon_black_bg.png",
-    apple: "/icon_black_bg.png",
+    icon: "/icon_trans_bg.png",
+    shortcut: "/icon_trans_bg.png",
+    apple: "/icon_trans_bg.png",
   },
 };
 
@@ -33,7 +35,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col bg-background text-foreground">
+        <SiteHeader />
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
