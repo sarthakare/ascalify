@@ -35,7 +35,7 @@ export function Hero({
 
   const trustItems = [
     "30-day support included",
-    "Mobile-first delivery",
+    "On Time Delivery",
     "Scale-ready packages",
   ];
 
