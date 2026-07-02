@@ -34,9 +34,9 @@ export function Hero({
     reducedMotion ? reducedMotionTransition(delay) : motionTransition(delay, duration);
 
   const trustItems = [
-    "30-day support included",
+    "Minimum30-Day Support Included",
     "On Time Delivery",
-    "Scale-ready packages",
+    "Scale-Ready Packages",
   ];
 
   return (
