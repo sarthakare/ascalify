@@ -12,8 +12,13 @@ export default function Home() {
   return (
     <main>
       <Hero
-        title="Website Packages"
-        highlight="Scale Beyond Limits"
+        title="We build"
+        rotatingPhrases={[
+          "Websites that drive conversions",
+          "Automations that save operations time",
+          "SaaS products tailored to your business",
+          "Digital systems built to scale growth",
+        ]}
         description={SALES_MESSAGE}
         primaryHref="/packages"
         primaryLabel="View Packages from $99"
