@@ -1,4 +1,5 @@
 FROM node:20-alpine AS base
+RUN apk add --no-cache libc6-compat
 
 FROM base AS deps
 WORKDIR /app
@@ -10,7 +11,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+ENV NODE_OPTIONS=--max-old-space-size=2048
+RUN npm run build -- --webpack
 
 FROM base AS runner
 WORKDIR /app
