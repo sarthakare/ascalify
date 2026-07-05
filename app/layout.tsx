@@ -19,6 +19,31 @@ export const metadata: Metadata = {
   title: "Ascalify | Website Packages — Scale Beyond Limits",
   description:
     "Website packages from $99 to enterprise. Start online, grow your business, and scale beyond limits with Ascalify.",
+  metadataBase: new URL("https://ascalify.com"),
+  openGraph: {
+    title: "Ascalify | Website Packages — Scale Beyond Limits",
+    description:
+      "Website packages from $99 to enterprise. Start online, grow your business, and scale beyond limits with Ascalify.",
+    url: "/",
+    siteName: "Ascalify",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ascalify - Scale Beyond Limits",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ascalify | Website Packages — Scale Beyond Limits",
+    description:
+      "Website packages from $99 to enterprise. Start online, grow your business, and scale beyond limits with Ascalify.",
+    images: ["/og-image.png"],
+  },
   icons: {
     icon: "/icon_trans_bg.png",
     shortcut: "/icon_trans_bg.png",
